@@ -1,0 +1,209 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-20px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes drawLine {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes popIn {
+  0% { transform: scale(0.6); opacity: 0; }
+  70% { transform: scale(1.1); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { transform: translateX(-100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100px); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -1000px 0; }
+  100% { background-position: 1000px 0; }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-draw-line {
+  animation: drawLine 1.5s ease-out forwards;
+  transform-origin: top;
+}
+
+.animate-pop {
+  animation: popIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-slide-in {
+  animation: slideInLeft 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.timeline-item:nth-child(even) .animate-slide-in {
+  animation: slideInRight 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.message-animation {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.message-animation ul li {
+  animation: slideIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.message-animation ul li:nth-child(1) { animation-delay: 0.1s; }
+.message-animation ul li:nth-child(2) { animation-delay: 0.2s; }
+.message-animation ul li:nth-child(3) { animation-delay: 0.3s; }
+.message-animation ul li:nth-child(4) { animation-delay: 0.4s; }
+.message-animation ul li:nth-child(5) { animation-delay: 0.5s; }
+
+/* Loading shimmer effect */
+.loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite linear;
+}
+
+.dark .loading-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+/* Timeline styles */
+.timeline-container {
+  @apply relative;
+}
+
+.timeline-line {
+  @apply absolute top-0 left-1/2 w-1 h-full -translate-x-1/2 bg-gradient-to-b from-blue-500 to-green-500;
+  transform-origin: top;
+}
+
+.timeline-item {
+  @apply relative flex items-center gap-8 opacity-0 my-24;
+}
+
+.timeline-content {
+  @apply w-[calc(50%-2rem)] p-6 rounded-xl shadow-lg;
+}
+
+/* Page Transitions */
+.page-transition {
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+}
+
+/* Smooth transitions */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gray-700 hover:bg-gray-600;
+}
+
+/* Tooltip */
+.tooltip-container {
+  @apply relative;
+}
+
+.tooltip {
+  @apply absolute bottom-full left-1/2 -translate-x-1/2 px-2 py-1 text-xs text-white bg-gray-800 rounded
+    opacity-0 invisible transition-all duration-200 mb-1 whitespace-nowrap;
+}
+
+.tooltip-container:hover .tooltip {
+  @apply opacity-100 visible mb-2;
+}
+
+/* Dark mode adjustments */
+.dark .prose h1 { @apply text-gray-100; }
+.dark .prose h2 { @apply text-gray-200; }
+.dark .prose h3 { @apply text-gray-300; }
+.dark .prose p { @apply text-gray-400; }
+.dark .prose strong { @apply text-blue-400; }
+.dark .prose ul { @apply text-gray-400; }
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .timeline-item {
+    @apply flex-col my-12;
+  }
+  
+  .timeline-content {
+    @apply w-full;
+  }
+  
+  .timeline-line {
+    @apply left-4;
+  }
+}
